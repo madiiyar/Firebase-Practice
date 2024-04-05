@@ -24,9 +24,9 @@
             <input
               type="text"
               class="text"
-              value="Full Name"
               onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'Full Name';}"
+              id="full_name"
+              placeholder="Full Name"
             />
             <p href="#" class="icon2 name"></p>
           </li>
@@ -34,39 +34,18 @@
             <input
               type="text"
               class="text"
-              value="Username"
-              onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'Username';}"
+              id="username"
+              placeholder="Username"
             />
             <p href="#" class="icon2 user2"></p>
           </li>
 
           <li>
-            <input
-              type="password"
-              value="Password"
-              onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'Password';}"
-            />
+            <input type="password" id="password" placeholder="Password" />
             <p href="#" class="icon2 lock2"></p>
           </li>
           <li>
-            <input
-              type="password"
-              value="Confirm Password"
-              onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'Confirm Password';}"
-            />
-            <p href="#" class="icon2 lock2"></p>
-          </li>
-          <li>
-            <input
-              type="text"
-              class="text"
-              value="E-mail"
-              onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'E-mail';}"
-            />
+            <input type="text" class="text" id="email" placeholder="Email" />
             <p href="#" class="icon2 mail"></p>
           </li>
           <div class="p-container">
@@ -76,11 +55,12 @@
             >
           </div>
           <div class="submit two">
-            <input type="submit" value="SIGN UP" />
+            <input type="submit" value="SIGN UP" id="registerBtn" />
           </div>
           <h5>Already a member ?<a href="LOGIN.html"> Login Here</a></h5>
         </form>
       </div>
     </div>
+    <script type="module" src="register.js"></script>
   </body>
 </html>

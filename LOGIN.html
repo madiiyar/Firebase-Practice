@@ -23,22 +23,12 @@
         </div>
         <form>
           <li>
-            <input
-              type="text"
-              class="text"
-              value="Username"
-              onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'Username';}"
-            />
+            <input type="text" class="text" id="email2" placeholder="Email" />
             <p href="#" class="icon user"></p>
           </li>
           <li>
-            <input
-              type="password"
-              value="Password"
-              onfocus="this.value = '';"
-              onblur="if (this.value == '') {this.value = 'Password';}"
-            /><a href="#" class="icon lock"></a>
+            <input type="password" id="password2" placeholder="Password" />
+            <p href="#" class="icon lock"></p>
           </li>
           <div class="p-container">
             <label class="checkbox"
@@ -49,7 +39,7 @@
             <div class="clear"></div>
           </div>
           <div class="submit">
-            <input type="submit" value="SIGN IN" />
+            <input type="submit" value="SIGN IN" id="loginBtn" />
           </div>
           <div class="social-icons">
             <p>Or you can Login with one of the following</p>
@@ -70,5 +60,6 @@
         </form>
       </div>
     </div>
+    <script type="module" src="login.js"></script>
   </body>
 </html>
