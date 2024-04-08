@@ -1,101 +1,126 @@
-const registerBtn = document.getElementById("registerBtn");
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import {
-  getDatabase,
-  ref,
-  set,
-  update,
-} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyD-kAE6FU7f2eAG5kowjDdTfZsyrayCn5A",
-  authDomain: "loginregister-153de.firebaseapp.com",
-  databaseURL: "https://loginregister-153de-default-rtdb.firebaseio.com",
-  projectId: "loginregister-153de",
-  storageBucket: "loginregister-153de.appspot.com",
-  messagingSenderId: "334939976026",
-  appId: "1:334939976026:web:deb883d3f870e20fd70363",
-  measurementId: "G-KZ9KT52JQ2",
+  apiKey: "AIzaSyBown3Vu1fH7i8Ca0osTpk3QcbgXblrLiM",
+  authDomain: "project2f1.firebaseapp.com",
+  projectId: "project2f1",
+  storageBucket: "project2f1.appspot.com",
+  messagingSenderId: "803967722871",
+  appId: "1:803967722871:web:7869df36309404f6c72d72"
 };
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const database = getDatabase(app);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// Initialize variables
+const auth = firebase.auth()
+const database = firebase.database()
 
-registerBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-  console.log("here");
-
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const full_name = document.getElementById("full_name").value;
-  const user_name = document.getElementById("username").value;
+function register () {
+  email = document.getElementById('email').value
+  password = document.getElementById('password').value
+  full_name = document.getElementById('full_name').value
 
   if (validate_email(email) == false || validate_password(password) == false) {
-    alert("Email or Password is not correct!!");
-    return;
+    alert('Email or Password is Outta Line!!')
+    return
   }
-  if (
-    validate_field(full_name) == false ||
-    validate_field(user_name) == false
-  ) {
-    alert("One or More Extra Fields is not correct!!");
-    return;
+  if (validate_field(full_name) == false) {
+    alert('One or More Extra Fields is Outta Line!!')
+    return
+  }
+ 
+  auth.createUserWithEmailAndPassword(email, password)
+  .then(function() {
+    // Declare user variable
+    var user = auth.currentUser
+
+    // Add this user to Firebase Database
+    var database_ref = database.ref()
+
+    // Create User data
+    var user_data = {
+      email : email,
+      full_name : full_name,
+      last_login : Date.now()
+    }
+
+    // Push to Firebase Database
+    database_ref.child('users/' + user.uid).set(user_data)
+
+    alert('User Created!!')
+    window.location.href = "/LOGIN.html";
+  })
+  .catch(function(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code
+    var error_message = error.message
+
+    alert(error_message)
+  })
+}
+
+function login () {
+  email = document.getElementById('email').value
+  password = document.getElementById('password').value
+
+  if (validate_email(email) == false || validate_password(password) == false) {
+    alert('Email or Password is not valid!')
+    return
   }
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      const user_data = {
-        email: email,
-        full_name: full_name,
-        user_name: user_name,
-        last_login: Date.now(),
-      };
+  auth.signInWithEmailAndPassword(email, password)
+  .then(function() {
+    // Declare user variable
+    var user = auth.currentUser
 
-      const dbRef = ref(database, "users/" + user.uid);
-      set(dbRef, user_data);
+    // Add this user to Firebase Database
+    var database_ref = database.ref()
 
-      alert("User Created!!");
-    })
-    .catch((error) => {
-      const errorMessage = error;
-      alert(errorMessage);
-    });
-});
+    // Create User data
+    var user_data = {
+      last_login : Date.now()
+    }
+
+    // Push to Firebase Database
+    database_ref.child('users/' + user.uid).update(user_data)
+
+    alert('User Logged In!!')
+
+  })
+  .catch(function(error) {
+    var error_code = error.code
+    var error_message = error.message
+
+    alert(error_message)
+  })
+}
+
+
+
 
 function validate_email(email) {
-  const expression = /^[^@]+@\w+(\.\w+)+\w$/; // Properly declare the variable
+  expression = /^[^@]+@\w+(\.\w+)+\w$/
   if (expression.test(email) == true) {
-    return true;
+    return true
   } else {
-    return false;
+    return false
   }
 }
 
 function validate_password(password) {
-  if (password.length < 6) {
-    return false;
+  if (password < 6) {
+    return false
   } else {
-    return true;
+    return true
   }
 }
 
 function validate_field(field) {
   if (field == null) {
-    return false;
+    return false
   }
 
   if (field.length <= 0) {
-    return false;
+    return false
   } else {
-    return true;
+    return true
   }
 }
