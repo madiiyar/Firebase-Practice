@@ -1,10 +1,10 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyBown3Vu1fH7i8Ca0osTpk3QcbgXblrLiM",
-  authDomain: "project2f1.firebaseapp.com",
-  projectId: "project2f1",
-  storageBucket: "project2f1.appspot.com",
-  messagingSenderId: "803967722871",
-  appId: "1:803967722871:web:7869df36309404f6c72d72"
+  apiKey: "AIzaSyCuE-4FEyxOX2jgTlD53vShcW0hMLVQoZ4",
+  authDomain: "fir-project-7c063.firebaseapp.com",
+  projectId: "fir-project-7c063",
+  storageBucket: "fir-project-7c063.appspot.com",
+  messagingSenderId: "265677435312",
+  appId: "1:265677435312:web:b853f6a4c4dcabc27fa675"
 };
 
 // Initialize Firebase
